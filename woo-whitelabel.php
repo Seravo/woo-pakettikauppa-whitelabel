@@ -36,7 +36,7 @@ if (!class_exists('\Pakettikauppa\Client')) {
 
 require_once 'core/class-core.php';
 
-class Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Core {
+class Woo_Pakettikauppa_Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Core {
   protected function maybe_load_setup_wizard() {
     // die("maybe?");
     $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -53,38 +53,6 @@ class Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Core {
     );
   }
 
-  // public function load() {
-  //   if ( ! $this->can_load() ) {
-  //     add_action(
-  //       'admin_notices',
-  //       function() {
-  //         echo '<div class="notice notice-error">';
-  //         echo '<p>' . __('WooCommerce whitelabel requires WooCommerce to be installed and activated!', 'wc-whitelabel') . '</p>';
-  //         echo '</div>';
-  //       }
-  //     );
-
-  //     return;
-  //   }
-
-  //   $this->text = parent::load_text_class();
-  //   $this->shipment = $this->load_shipment_class();
-  //   $this->load_shipping_method_class();
-
-  //   if ( is_admin() ) {
-  //     $this->admin = self::$instance->load_admin_class();
-  //     $this->setup_wizard = $this->maybe_load_setup_wizard();
-
-  //     // var_dump($this->admin);
-  //   } else {
-  //     $this->frontend = $this->load_frontend_class();
-  //   }
-
-  //   var_dump(self::$instance); die();
-
-
-  //   return $this;
-  // }
 
   protected function load_admin_class() {
     require_once 'core/class-admin.php';
@@ -97,7 +65,7 @@ class Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Core {
   }
 }
 
-$instance = new Whitelabel(
+$instance = new Woo_Pakettikauppa_Whitelabel(
   [
     'root' => __FILE__,
     'version' => get_file_data(__FILE__, array( 'Version' ), 'plugin')[0],
@@ -108,7 +76,4 @@ $instance = new Whitelabel(
     'setup_background' => 'assets/img/whitelabel-background.jpg',
   ]
 );
-
-var_dump($instance->basename);
-
 
