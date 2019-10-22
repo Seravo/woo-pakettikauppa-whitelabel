@@ -37,14 +37,6 @@ if (!class_exists('\Pakettikauppa\Client')) {
 require_once 'core/class-core.php';
 
 class Woo_Pakettikauppa_Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Core {
-  protected function maybe_load_setup_wizard() {
-    // die("maybe?");
-    $page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_SPECIAL_CHARS);
-    if ( $page === 'wcwhitelabel-setup' ) {
-      $this->load_setup_wizard_class();
-    }
-  }
-
   public function load_textdomain() {
     load_plugin_textdomain(
       'wc-whitelabel',
@@ -53,6 +45,12 @@ class Woo_Pakettikauppa_Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Cor
     );
   }
 
+  protected function load_text_class() {
+    require_once 'core/class-text.php';
+    require_once 'whitelabel/class-text.php';
+
+    return new Text($this);
+  }
 
   protected function load_admin_class() {
     require_once 'core/class-admin.php';
@@ -62,6 +60,24 @@ class Woo_Pakettikauppa_Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Cor
     $admin->load();
 
     return $admin;
+  }
+
+  protected function load_shipping_method_class() {
+    require_once 'core/class-shipping-method.php';
+    require_once 'whitelabel/class-shipping-method.php';
+  }
+
+  public function add_shipping_method() {
+    add_filter(
+      'woocommerce_shipping_methods',
+      function( $methods ) {
+        Shipping_Method::$core = $this; // WooCommerce doesn't allow injecting stuff through the constructor, so this is different from other modules
+
+        $methods[$this->shippingmethod] = __NAMESPACE__ . '\Shipping_Method';
+
+        return $methods;
+      }
+    );
   }
 }
 
@@ -74,6 +90,7 @@ $instance = new Woo_Pakettikauppa_Whitelabel(
     'vendor_url' => 'https://www.whitelabel.fi/',
     'vendor_logo' => 'assets/img/whitelabel-logo.png',
     'setup_background' => 'assets/img/whitelabel-background.jpg',
+    'setup_page' => 'wcwhitelabel-setup',
   ]
 );
 
