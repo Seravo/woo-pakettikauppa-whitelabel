@@ -13,15 +13,12 @@ function get_plugin_class() {
   return join('_', $parts);
 }
 
+/*
+ * Wrapper function to support wc-pakettikauppa.php
+ * Modified to not do anything special in the whitelabel fork
+ */
 function get_plugin_directory( $replace = false ) {
-  $dir = dirname(__DIR__);
-
-  if ( ! $replace ) {
-    return $dir;
-  }
-
-  // Hack to get tests working without deactivating the plugin for old users
-  return str_replace('woo-pakettikauppa', 'wc-pakettikauppa', dirname(__DIR__));
+  return dirname(__DIR__);
 }
 
 function get_plugin_main_filename() {
