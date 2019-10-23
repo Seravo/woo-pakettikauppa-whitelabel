@@ -37,6 +37,35 @@ if (!class_exists('\Pakettikauppa\Client')) {
 require_once 'core/class-core.php';
 
 class Woo_Pakettikauppa_Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Core {
+  public function __construct( $config = [] ) {
+    parent::__construct($config);
+
+    add_action('admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ));
+    add_action('woocommerce_before_checkout_form', array( $this, 'enqueue_frontend_scripts' ));
+
+    add_action('init', function() {
+      if ( apply_filters('woo_whitelabel_enable_setup_wizard', true) && current_user_can('manage_woocommerce') ) {
+        add_action('admin_enqueue_scripts', array( $this, 'enqueue_setup_scripts' ));
+      }
+    });
+  }
+
+  public function enqueue_setup_scripts() {
+    wp_enqueue_style('woo_whitelabel_admin_setup', $this->dir_url . 'whitelabel/assets/admin-setup.css', array(), $this->version);
+    wp_enqueue_style('wp-admin');
+    wp_enqueue_style('buttons');
+  }
+
+  public function enqueue_admin_scripts() {
+    wp_enqueue_style('woo_whitelabel_admin', $this->dir_url . 'whitelabel/assets/admin.css', array(), $this->version);
+    // wp_enqueue_script('woo_whitelabel_admin_js', $this->dir_url . 'assets/js/admin.js', array( 'jquery' ), $this->version, true);
+  }
+
+  public function enqueue_frontend_scripts() {
+    wp_enqueue_style('woo_whitelabel', $this->dir_url . '/whitelabel/assets/frontend.css', array(), $this->version);
+    // wp_enqueue_script('woo_whitelabel_js', $this->dir_url . '/assets/js/frontend.js', array( 'jquery' ), $this->version, true);
+  }
+
   public function load_textdomain() {
     load_plugin_textdomain(
       'wc-whitelabel',
