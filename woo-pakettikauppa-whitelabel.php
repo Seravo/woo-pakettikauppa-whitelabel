@@ -76,7 +76,7 @@ class Woo_Pakettikauppa_Whitelabel extends \Woo_Pakettikauppa_Core\Core {
     require_once 'core/class-text.php';
     require_once 'whitelabel/classes/class-text.php';
 
-    return new Text($this);
+    return new \Woo_Pakettikauppa_Whitelabel\Text($this);
   }
 }
 
