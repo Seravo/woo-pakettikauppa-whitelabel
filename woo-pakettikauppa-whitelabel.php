@@ -61,24 +61,6 @@ class Woo_Pakettikauppa_Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Cor
 
     return $admin;
   }
-
-  protected function load_shipping_method_class() {
-    require_once 'core/class-shipping-method.php';
-    require_once 'whitelabel/class-shipping-method.php';
-  }
-
-  public function add_shipping_method() {
-    add_filter(
-      'woocommerce_shipping_methods',
-      function( $methods ) {
-        Shipping_Method::$core = $this; // WooCommerce doesn't allow injecting stuff through the constructor, so this is different from other modules
-
-        $methods[$this->shippingmethod] = __NAMESPACE__ . '\Shipping_Method';
-
-        return $methods;
-      }
-    );
-  }
 }
 
 $instance = new Woo_Pakettikauppa_Whitelabel(
