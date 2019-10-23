@@ -47,19 +47,9 @@ class Woo_Pakettikauppa_Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Cor
 
   protected function load_text_class() {
     require_once 'core/class-text.php';
-    require_once 'whitelabel/class-text.php';
+    require_once 'whitelabel/classes/class-text.php';
 
     return new Text($this);
-  }
-
-  protected function load_admin_class() {
-    require_once 'core/class-admin.php';
-    require_once 'whitelabel/class-admin.php';
-
-    $admin = new Admin($this);
-    $admin->load();
-
-    return $admin;
   }
 }
 
@@ -70,9 +60,8 @@ $instance = new Woo_Pakettikauppa_Whitelabel(
     'shipping_method_name' => 'whitelabel_shipping_method',
     'vendor_name' => 'whitelabel',
     'vendor_url' => 'https://www.whitelabel.fi/',
-    'vendor_logo' => 'assets/img/whitelabel-logo.png',
-    'setup_background' => 'assets/img/whitelabel-background.jpg',
+    'vendor_logo' => 'whitelabel/assets/logo.jpg',
+    'setup_background' => 'whitelabel/assets/setup.jpg',
     'setup_page' => 'wcwhitelabel-setup',
   ]
 );
-
