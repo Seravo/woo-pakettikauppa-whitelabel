@@ -6,7 +6,7 @@
  * Description: whitelabel shipping service for WooCommerce. Integrates Posti, Smartship, Matkahuolto, DB Schenker and others. Version 2 breaks 1.x pricing settings.
  * Author: Seravo
  * Author URI: https://seravo.com/
- * Text Domain: wc-whitelabel
+ * Text Domain: woo-whitelabel
  * Domain Path: /languages/
  * License: GPL v3 or later
  *
@@ -17,8 +17,6 @@
  * License: GNU General Public License v3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
-
-namespace Seravo\WooCommerce\Whitelabel;
 
 // Prevent direct access to this script
 if ( ! defined('ABSPATH') ) {
@@ -36,7 +34,7 @@ if (!class_exists('\Pakettikauppa\Client')) {
 
 require_once 'core/class-core.php';
 
-class Woo_Pakettikauppa_Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Core {
+class Woo_Pakettikauppa_Whitelabel extends \Woo_Pakettikauppa_Core\Core {
   public function __construct( $config = [] ) {
     parent::__construct($config);
 
@@ -68,7 +66,7 @@ class Woo_Pakettikauppa_Whitelabel extends \Seravo\WooCommerce\Pakettikauppa\Cor
 
   public function load_textdomain() {
     load_plugin_textdomain(
-      'wc-whitelabel',
+      'woo-whitelabel',
       false,
       dirname(plugin_basename(__FILE__)) . '/languages/'
     );
@@ -89,7 +87,7 @@ $instance = new Woo_Pakettikauppa_Whitelabel(
     'shipping_method_name' => 'whitelabel_shipping_method',
     'vendor_name' => 'whitelabel',
     'vendor_url' => 'https://www.whitelabel.fi/',
-    'vendor_logo' => 'whitelabel/assets/logo.jpg',
+    'vendor_logo' => 'whitelabel/assets/logo.png',
     'setup_background' => 'whitelabel/assets/setup.jpg',
     'setup_page' => 'wcwhitelabel-setup',
   ]
