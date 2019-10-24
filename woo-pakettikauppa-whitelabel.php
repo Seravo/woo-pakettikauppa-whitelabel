@@ -35,6 +35,8 @@ if (!class_exists('\Pakettikauppa\Client')) {
 require_once 'core/class-core.php';
 
 class Woo_Pakettikauppa_Whitelabel extends \Woo_Pakettikauppa_Core\Core {
+  public $prefix = 'woo_whitelabel';
+
   public function __construct( $config = [] ) {
     parent::__construct($config);
 
@@ -62,6 +64,13 @@ class Woo_Pakettikauppa_Whitelabel extends \Woo_Pakettikauppa_Core\Core {
   public function enqueue_frontend_scripts() {
     wp_enqueue_style('woo_whitelabel', $this->dir_url . '/whitelabel/assets/frontend.css', array(), $this->version);
     // wp_enqueue_script('woo_whitelabel_js', $this->dir_url . '/assets/js/frontend.js', array( 'jquery' ), $this->version, true);
+  }
+
+  protected function load_shipment_class() {
+    require_once 'core/class-shipment.php';
+    require_once 'whitelabel/classes/class-shipment.php';
+
+    return new \Woo_Pakettikauppa_Whitelabel\Shipment($this);
   }
 
   public function load_textdomain() {
