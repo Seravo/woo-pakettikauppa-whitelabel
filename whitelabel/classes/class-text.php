@@ -35,4 +35,12 @@ class Text extends \Woo_Pakettikauppa_Core\Text {
   public function show_shipping_method() {
     return __('Show Whitelabel shipping method', 'woo-whitelabel');
   }
+
+  public function no_woo_error() {
+    return __('WooCommerce Whitelabel requires WooCommerce to be installed and activated!', 'woo-pakettikauppa');
+  }
+
+  public function activated_core_plugin_error() {
+    return __('WooCommerce Whitelabel can\'t be activated at the same time with WooCommerce Pakettikauppa. Deactivate WooCommerce Pakettikauppa!', 'woo-whitelabel');
+  }
 }

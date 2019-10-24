@@ -50,6 +50,23 @@ class Woo_Pakettikauppa_Whitelabel extends \Woo_Pakettikauppa_Core\Core {
     });
   }
 
+  public function can_load() {
+    if (class_exists('Woo_Pakettikauppa')) {
+      add_action(
+        'admin_notices',
+        function() {
+          echo '<div class="notice notice-error">';
+          echo '<p>' . $this->text->activated_core_plugin_error() . '</p>';
+          echo '</div>';
+        }
+      );
+
+      return false;
+    }
+
+    return true;
+  }
+
   public function enqueue_setup_scripts() {
     wp_enqueue_style('woo_whitelabel_admin_setup', $this->dir_url . 'whitelabel/assets/admin-setup.css', array(), $this->version);
     wp_enqueue_style('wp-admin');
@@ -74,10 +91,12 @@ class Woo_Pakettikauppa_Whitelabel extends \Woo_Pakettikauppa_Core\Core {
   }
 
   public function load_textdomain() {
+    parent::load_textdomain();
+
     load_plugin_textdomain(
       'woo-whitelabel',
       false,
-      dirname(plugin_basename(__FILE__)) . '/languages/'
+      dirname(plugin_basename(__FILE__)) . '/whitelabel/languages/'
     );
   }
 
