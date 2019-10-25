@@ -28,7 +28,7 @@ if ( ! defined('ABSPATH') ) {
  * whitelabel forks use the same autoloader which results in a fatal error if the main plugin and a whitelabel plugin
  * co-exist.
  */
-if (!class_exists('\Pakettikauppa\Client')) {
+if ( ! class_exists('\Pakettikauppa\Client') ) {
   require_once 'vendor/autoload.php';
 }
 
@@ -43,15 +43,18 @@ class Woo_Pakettikauppa_Whitelabel extends \Woo_Pakettikauppa_Core\Core {
     add_action('admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ));
     add_action('woocommerce_before_checkout_form', array( $this, 'enqueue_frontend_scripts' ));
 
-    add_action('init', function() {
+    add_action(
+      'init',
+      function() {
       if ( apply_filters('woo_whitelabel_enable_setup_wizard', true) && current_user_can('manage_woocommerce') ) {
-        add_action('admin_enqueue_scripts', array( $this, 'enqueue_setup_scripts' ));
+          add_action('admin_enqueue_scripts', array( $this, 'enqueue_setup_scripts' ));
       }
-    });
+      }
+    );
   }
 
   public function can_load() {
-    if (class_exists('Woo_Pakettikauppa')) {
+    if ( class_exists('Woo_Pakettikauppa') ) {
       add_action(
         'admin_notices',
         function() {
@@ -74,12 +77,12 @@ class Woo_Pakettikauppa_Whitelabel extends \Woo_Pakettikauppa_Core\Core {
   }
 
   public function enqueue_admin_scripts() {
-    wp_enqueue_style('woo_whitelabel_admin', $this->dir_url . 'whitelabel/assets/admin.css', array(), $this->version);
+    // wp_enqueue_style('woo_whitelabel_admin', $this->dir_url . 'whitelabel/assets/admin.css', array(), $this->version);
     // wp_enqueue_script('woo_whitelabel_admin_js', $this->dir_url . 'assets/js/admin.js', array( 'jquery' ), $this->version, true);
   }
 
   public function enqueue_frontend_scripts() {
-    wp_enqueue_style('woo_whitelabel', $this->dir_url . '/whitelabel/assets/frontend.css', array(), $this->version);
+    // wp_enqueue_style('woo_whitelabel', $this->dir_url . '/whitelabel/assets/frontend.css', array(), $this->version);
     // wp_enqueue_script('woo_whitelabel_js', $this->dir_url . '/assets/js/frontend.js', array( 'jquery' ), $this->version, true);
   }
 
@@ -87,7 +90,10 @@ class Woo_Pakettikauppa_Whitelabel extends \Woo_Pakettikauppa_Core\Core {
     require_once 'core/class-shipment.php';
     require_once 'whitelabel/classes/class-shipment.php';
 
-    return new \Woo_Pakettikauppa_Whitelabel\Shipment($this);
+    $shipment = new \Woo_Pakettikauppa_Whitelabel\Shipment($this);
+    $shipment->load();
+
+    return $shipment;
   }
 
   public function load_textdomain() {
