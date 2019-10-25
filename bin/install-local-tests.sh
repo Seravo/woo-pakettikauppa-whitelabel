@@ -8,6 +8,15 @@ WP_VERSION=4.9.9
 WP_MULTISITE=1
 PHP_VERSION=7.3
 
+DIR=$(basename $(pwd))
+
+if [ "$DIR" != "bin" ]; then
+  echo "You must run this script from the bin directory."
+  exit 1
+fi
+
+cd ..
+
 # Install phpunit 7.x as WordPress does not support 8.x yet
 if [[ "$PHP_VERSION" == "5.6" ]]; then PHPUNIT_VERSION=5.7.9; else PHPUNIT_VERSION=7.5.9; fi
 wget https://phar.phpunit.de/phpunit-$PHPUNIT_VERSION.phar -O /tmp/phpunit; chmod +x /tmp/phpunit

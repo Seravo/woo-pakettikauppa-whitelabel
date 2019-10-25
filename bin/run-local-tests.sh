@@ -3,6 +3,14 @@
 set -euo pipefail
 
 SNIFF=1
+DIR=$(basename $(pwd))
+
+if [ "$DIR" != "bin" ]; then
+  echo "You must run this script from the bin directory."
+  exit 1
+fi
+
+cd ..
 
 if [[ "$SNIFF" == "1" ]]; then export PHPCS_DIR=/tmp/phpcs; export PHPCS_VERSION=3.3.2; fi
 

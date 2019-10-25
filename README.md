@@ -81,10 +81,11 @@ You can run the tests locally with by using the install-tests.sh & run-tests.sh.
 
 ```
 docker-compose exec wordpress bash
-cd /data/wordpress/htdocs/wp-content/plugins/woo-pakettikauppa/
+cd /data/wordpress/htdocs/wp-content/plugins/woo-pakettikauppa/bin
 
-./install-tests.sh
-./run-tests.sh
+# do not run ./install-wp-tests.sh yourself
+./install-local-tests.sh
+./run-local-tests.sh
 ```
 
 You may need to chmod the scripts before using: `chmod +x install-tests.sh`
