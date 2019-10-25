@@ -102,7 +102,7 @@ class Woo_Pakettikauppa_Whitelabel extends \Woo_Pakettikauppa_Core\Core {
     load_plugin_textdomain(
       'woo-whitelabel',
       false,
-      dirname(plugin_basename(__FILE__)) . '/whitelabel/languages/'
+      dirname($this->basename) . '/whitelabel/languages/'
     );
   }
 
